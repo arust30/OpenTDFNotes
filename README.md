@@ -36,6 +36,9 @@ _functions purposefully omitted, or to be implemented at a further stage of deve
 - Search
 - Sharing
 - Text Formatting
+### Future Features:
+ - Browser Integration (host a little GUI locally)
+ - 
 
 ## Installation / Setup
 
