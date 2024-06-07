@@ -25,7 +25,7 @@ OpenTDFNotes/
 
 ## Features
 _functions intended to include, and those that are primarily pursued during development_
- - Simple CLI interface, flags  
+ - Simple CLI interface 
  - Local-first
  - Creating, editing, deleting notes
  - Encryption/Decryption using OpenTDF
@@ -38,8 +38,11 @@ _functions purposefully omitted, or to be implemented at a further stage of deve
 - Text Formatting
 ### Future Features:
  - Browser Integration (host a little GUI locally)
- - 
+ - Flags (tagging notes by category, etc)
 
 ## Installation / Setup
+### Requirements:
+    - Go (see installation doc for you Linux repo or macOS)
+    - opentdf/otdfctl ([GitHub](https://github.com/opentdf/otdfctl/))
 
 ## Usage / Demo
