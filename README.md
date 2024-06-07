@@ -44,5 +44,7 @@ _functions purposefully omitted, or to be implemented at a further stage of deve
 ### Requirements:
     - Go (see installation doc for you Linux repo or macOS)
     - opentdf/otdfctl ([GitHub](https://github.com/opentdf/otdfctl/))
+        - `go get github.com/opentdf/otdfctl`
+
 
 ## Usage / Demo
