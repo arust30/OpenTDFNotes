@@ -2,23 +2,23 @@ package main
 
 import (
 	"fmt"
-	"github.com/opentdf/otdfctl/pkg/client"
+	"os/exec"
+	"strings"
 )
 
 func main() {
-	// Create a new OpenTDF client
-	c, err := client.NewClient()
-	if err != nil {
-		fmt.Println("Error creating client:", err)
-		return
-	}
+	// Create a new command to execute the otdfctl binary
+	cmd := exec.Command("otdfctl", "-h")
 
-	// Print the client version
-	version, err := c.Version()
+	// Run the command and capture the output
+	output, err := cmd.Output()
 	if err != nil {
 		fmt.Println("Error getting version:", err)
 		return
 	}
+
+	// Print the version number
+	version := strings.TrimSpace(string(output))[len("OpenTDF version:"):]
 	fmt.Println("OpenTDF version:", version)
 }
 
