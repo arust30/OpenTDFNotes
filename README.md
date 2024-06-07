@@ -49,9 +49,12 @@ _Functions purposefully omitted, or to be implemented at a further stage of deve
 
 
 ## Usage / Demo
- - Commands:
-    - `note new <title>`
-    - `note edit <title>`
-    - `note delete <title>`
+Here are the availble commands and how they are to be invoked:
+ - `note new <title>`: Creates a new encrypted note with the specified title. The note content is read from stdin.
+ - `note edit <title>`: Edits an existing encrypted note with the specified title. The new note content is read from stdin.
+ - `note delete <title>`: Deletes an existing encrypted note with the specified title.
+
+## Sample Usage
+ - `echo "This is a test note" | note new "Sample Note 1"`
 
 
