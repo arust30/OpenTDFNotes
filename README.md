@@ -7,21 +7,10 @@ This repository is a small Proof-of-Concept for managing private notes on a loca
 ## Directory Structure
 ```
 OpenTDFNotes/
-├── cmd/
-│   └── main.go/
-│   └── list.go/
-│   └── delete.go/
-│   └── new.go/
-│   └── edit.go/
-|
-├── pkg/
-│   └── notes/
-│       ├── note.go
-│       └── notes.go
+├── main.go
 ├── config.yaml
 ├── go.mod
 ├── go.sum
-├── note 
 ├── README.md
 └── scripts/
     ├── setup.sh
