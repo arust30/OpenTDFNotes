@@ -8,6 +8,50 @@ import (
 	"strings"
 )
 
+type Note struct {
+	Title   string
+	Content string
+}
+
+func createNote(title, content string) error {
+	note := &Note{
+		Title:   title,
+		Content: content,
+	}
+	fmt.Printf("Creating note with title: %s and content: %s\n", note.Title, note.Content)
+	return nil
+}
+
+func editNote(title, content string) error {
+	// For the sake of simplicity, we'll just print the new content.
+	// In a real implementation, you would find the note with the given title
+	// and update its content.
+	fmt.Printf("Editing note with title: %s and new content: %s\n", title, content)
+	return nil
+}
+
+func deleteNote(title string) error {
+	fmt.Printf("Deleting note with title: %s\n", title)
+	return nil
+}
+
+func listNotes() ([]string, error) {
+	fmt.Println("Listing all notes (placeholder)")
+	return []string{"Note 1", "Note 2", "Note 3"}, nil
+}
+
+func encryptContent(content string) (string, error) {
+	cmd := exec.Command("otdfctl", "encrypt", "--host", "http://localhost:8888")
+	cmd.Stdin = strings.NewReader(content)
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return "", fmt.Errorf("failed to encrypt content: %w", err)
+	}
+
+	encryptedContent := strings.TrimSpace(string(output))
+	return encryptedContent, nil
+}
+
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: note <command> [<args>]")
@@ -82,49 +126,9 @@ func main() {
 		fmt.Println("Note deleted")
 
 	case "list":
-		notes, err := listNotes()
+		_, err := listNotes()
 		if err != nil {
 			fmt.Println(err)
-			return
 		}
-
-		for _, note := range notes {
-			fmt.Println(note)
-		}
-
-	default:
-		fmt.Printf("Unknown command: %s\n", command)
 	}
 }
-
-func encryptContent(content string) (string, error) {
-	cmd := exec.Command("opentdf", "encrypt", "--plaintext", content)
-	output, err := cmd.CombinedOutput()
-	if err != nil {
-		return "", fmt.Errorf("failed to encrypt content: %w", err)
-	}
-
-	encryptedContent := strings.TrimSpace(string(output))
-	return encryptedContent, nil
-}
-
-func createNote(title, content string) error {
-	// TODO: Implement the logic to create a note with the given title and content
-	return nil
-}
-
-func editNote(title, content string) error {
-	// TODO: Implement the logic to edit a note with the given title and content
-	return nil
-}
-
-func deleteNote(title string) error {
-	// TODO: Implement the logic to delete a note with the given title
-	return nil
-}
-
-func listNotes() ([]string, error) {
-	// TODO: Implement the logic to list all the notes
-	return nil, nil
-}
-
