@@ -1,0 +1,8 @@
+# CONFIGS FOR OPENTDF
+#http_port = 8888
+#http_address = localhost
+#
+#ftp_port= 21 
+#ftp_address = localhost
+#
+#binary_location = $pwd/note
