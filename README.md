@@ -71,7 +71,7 @@ chmod +x note
 
 Now you should be able to invoke the CLI as outlined below:
 
-(optional) 5. Test ssh connection
+5. Test ssh connection(optional)
 
 `ssh -T 192.168.0.112:22`
 

@@ -1,0 +1,1 @@
+This is another sample note written in plaintext called 'note2.txt'
