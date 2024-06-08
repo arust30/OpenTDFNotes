@@ -8,8 +8,11 @@ This repository is a small Proof-of-Concept for managing private notes on a loca
 ```
 OpenTDFNotes/
 ├── cmd/
-│   └── secure-notes/
-│       └── main.go
+│   └── list.go/
+│   └── delete.go/
+│   └── new.go/
+│   └── edit.go/
+|
 ├── pkg/
 │   └── notes/
 │       ├── note.go
@@ -17,6 +20,7 @@ OpenTDFNotes/
 ├── config.yaml
 ├── go.mod
 ├── go.sum
+├── note 
 ├── README.md
 └── scripts/
     ├── setup.sh
@@ -46,15 +50,19 @@ _Functions purposefully omitted, or to be implemented at a further stage of deve
     - opentdf/otdfctl ([GitHub](https://github.com/opentdf/otdfctl/))
         - `go get github.com/opentdf/otdfctl@upgrade`
         - or install as binary:
+    - make sure to chmod necessary scripts
 
 
 ## Usage / Demo
 Here are the availble commands and how they are to be invoked:
- - `note new <title>`: Creates a new encrypted note with the specified title. The note content is read from stdin.
- - `note edit <title>`: Edits an existing encrypted note with the specified title. The new note content is read from stdin.
- - `note delete <title>`: Deletes an existing encrypted note with the specified title.
+ - `note new <title>`: Creates a new encrypted note with the specified title. The note content is read from stdin
+ - `note edit <title>`: Edits an existing encrypted note with the specified title. The new note content is read from stdin
+ - `note delete <title>`: Deletes an existing encrypted note with the specified title
+ - `note list`: Lists the current notes
 
 ## Sample Usage
  - `echo "This is a test note" | note new "Sample Note 1"`
+ - `echo "This is an update to a note" | note edit "Sample Note 1"`
+ - `note delete "Sample Note 1"`
 
 

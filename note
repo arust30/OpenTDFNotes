@@ -1,0 +1,12 @@
+#!/bin/bash
+# BASH SCRIPT FOR CONTROLLING CLI INVOCATION OF COMMANDS
+
+if [ $# -lt 1 ]; then
+  echo "Usage: note <new|edit|delete|list> <title>"
+  exit 1
+fi
+
+command=$1
+title=$2
+
+bin/ note $command $title
