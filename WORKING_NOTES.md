@@ -23,14 +23,18 @@ docker run -d --name keycloak \
  to no avail
  - a few permissions issues (localhost.crv need executable via chmod +x) but didn't resolve issues
  - took a long break. Will try clean install later
---- (spent time away) 
+
+#--- (spent time away) 
+
  - started back by reading up on docs for cli tool since that would be much closer to what I am using (assuming I could get the platform up and running)
  - found link for docs in browser but permission denied [here](https://github.com/opentdf/otdfctl/tree/main/docs)
  - so read docs I just used cat: `cd otdfctl/docs/man | cat *`
  - this also gave me fodder to feed prompts to Mistral for better context for `otdfctl <commands>` since it was just guessing at first - still sucks tbh
  - built binary for `otdfctl` manually since installing with go ended with circular imports... probably my fault, but just wanted to get to testing so this was easier
---- (spent time away)
- - wrote some updated specs and usages on the README after thinking a bit more about what to do
+
+#--- (spent time away)
+
+- wrote some updated specs and usages on the README after thinking a bit more about what to do
  - revised the **very** complicated schema I had before into a single `main.go` file and then a bunch of sub-functions inside. The initial idea might've been better if this were a serious project
  - went through with 'the knife' and just tried to simplify everything as much as possible from where I was conceptually when I started.
  - used Mistral to help simplify a single Go script but did all the README and invocation edits myself - I believe final documentation should be written by human fingers even if LLMs give out the ideas... imho
