@@ -12,13 +12,15 @@ The primary use-case for this tool would be for an individual to manage their pe
 _The following is the directory structure of this project along with descriptions_
 ```
 OpenTDFNotes/
-├── main.go
-├── config.yaml
 ├── go.mod
 ├── go.sum
+├── main.go `: The primary Go file
+├── config.yaml `: IP addresses, ports, and other configs go here
 ├── note `: bash script for invoking binary and where configuration settings/env variables may be instantiated
 ├── note`: The main.go code is compiled and the binary is placed here
 ├── notes/ `: Here is where encrypted notes would go
+|
+|
 ├── README.md
 ```
 
