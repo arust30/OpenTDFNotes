@@ -11,6 +11,7 @@
 
 ## Video Demo
 ![](DemoVideo.mp4)
+https://youtu.be/rIBTVMCRnlc
 
 ## Motivation
 _Secure plaintext note sharing using OpenTDF & Go_
