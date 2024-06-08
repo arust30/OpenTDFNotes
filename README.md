@@ -1,7 +1,8 @@
 # OpenTDFNotes
-_Secure plaintext note sharing using OpenTDF & Go_
 
 ## Motivation
+_Secure plaintext note sharing using OpenTDF & Go_
+
 This repository is a naive and simple Proof-of-Concept for sharing encrypted notes on a (local) network using the CLI
 
 The primary use-case for this tool would be for an individual to manage their personal notes across multile devices on a home network, perhaps (it is assumed key sharing is secure).
@@ -14,12 +15,11 @@ _The following is the directory structure of this project along with description
 OpenTDFNotes/
 ├── go.mod
 ├── go.sum
-├── main.go `: The primary Go file
-├── config.yaml `: IP addresses, ports, and other configs go here
-├── note `: bash script for invoking binary and where configuration settings/env variables may be instantiated
-├── note`: The main.go code is compiled and the binary is placed here
-├── notes/ `: Here is where encrypted notes would go
-|
+├── main.go : The primary Go file
+├── config.yaml : IP addresses, ports, and other configs go here
+├── note : bash script for invoking binary and where configuration settings/env variables may be instantiated
+├── note: The main.go code is compiled and the binary is placed here
+├── notes/ : Here is where encrypted notes would go
 |
 ├── README.md
 ```
@@ -27,16 +27,15 @@ OpenTDFNotes/
 ## Features
 _Functions intended to include, and those that are primarily pursued during development_
  - Simple CLI interface 
- - Local-first
- - Creating, editing, deleting notes
- - Encryption/Decryption using OpenTDF
+ - Basic encrypted file sharing
+ - Creating, deleting, listing, and sharing encrypted notes
+ - Encryption/decryption using OpenTDF
 
 ## Anti-Features
 _Functions purposefully omitted, or to be implemented at a further stage of development_
  - Syncing/Version Control of shared files, viewable history
- - More robust search feature
- - Browser Integration (host a little GUI locally)
- - Flags (tagging notes/files by category, etc)
+ - Editing notes (TODO)
+ - Non-plaintext formats
 
 ### Requirements:
  - [Go](https://github.com/golang/go)
@@ -75,18 +74,18 @@ Now you should be able to invoke the CLI as outlined below:
 Here are the availble commands and how they are to be invoked:
  - `note new <title>`: Creates a new encrypted note with the specified title. The note content is read from stdin
  - `note delete <title>`: Deletes an existing encrypted note with the specified title
- - `note list`: Lists the current notes
- - `note send <target>`: Sends the encrpyted note to IP address via FTP (local only, for now)
+ - `note send <title> <target>`: Sends the encrpyted note to IP address via FTP (local only, for now)
 
 ### Sample:
- - `echo "This is a test note" | note new "Sample Note 1"`
+ - `note new "Sample Note 1"`
  - `note delete "Sample Note 1"`
- - `note list`
+ - `note new "Sample Note 2"`
+ - `note send "Sample Note 2" 192.168.0.112:21`
 
 ## TODOs:
  - [ ] Setup/Teardown Bash Scripts
- - [ ] adding `note send <target>` command to send note to device on local network
- - [ ] adding `note edit <title>` command to make notes mutable
- - [ ]
-
+ - [ ] Add `note edit <title>` command to make notes mutable
+ - [ ] Add tagging feature
+ - [ ] Add robust search feature to filter notes
+ - [ ] Browser GUI: locally hosted GUI to manage sending/viewing/editing notes
 
