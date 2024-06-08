@@ -42,6 +42,7 @@ _Functions purposefully omitted, or to be implemented at a further stage of deve
  - OpenTDF Platform running on machine (requires Docker, among others - see [documentation](https://github.com/opentdf/platform))
  - OpenTDF Command-Line Utility: opentdf/otdfctl - ([GitHub](https://github.com/opentdf/otdfctl/))
     - Install as binary and add to PATH
+ - ssh daemon running, and scp utility installed on both client and server devices on network (local)
 
 ## Setup Validation & Installation Steps
 1. To ensure you have all the prerequisites, invoke the following commands:
@@ -70,11 +71,15 @@ chmod +x note
 
 Now you should be able to invoke the CLI as outlined below:
 
+(optional) 5. Test ssh connection
+
+`ssh -T 192.168.0.112:22`
+
 ## Usage
 Here are the availble commands and how they are to be invoked:
  - `note new <title>`: Creates a new encrypted note with the specified title. The note content is read from stdin
  - `note delete <title>`: Deletes an existing encrypted note with the specified title
- - `note send <title> <target>`: Sends the encrpyted note to IP address via FTP (local only, for now)
+ - `note send <title> <target>`: Sends the encrpyted note to IP address via SCP (OR ssh, local only, for now)
 
 ### Sample:
  - `note new "Sample Note 1"`
