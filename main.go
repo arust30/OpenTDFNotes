@@ -9,55 +9,46 @@ import (
     "os/exec"
     "strings"
 )
-//
+
+// Note struct to store title and content of a note
 type Note struct {
-	Title   string
-	Content string
+    Title   string
+    Content string
 }
 
+// createNote function to create a new note with the given title and content
 func createNote(title, content string) error {
-	note := &Note{
-		Title:   title,
-		Content: content,
-	}
-	fmt.Printf("Creating note with title: %s and content: %s\n", note.Title, note.Content)
-	return nil
+    note := &Note{
+        Title:   title,
+        Content: content,
+    }
+    fmt.Printf("Creating note with title: %s and content: %s\n", note.Title, note.Content)
+    return nil
 }
 
+// editNote function to edit the content of an existing note with the given title
 func editNote(title, content string) error {
 	// For the sake of simplicity, we'll just print the new content. In a real implementation, you would find the note with the given title and update the content.
 	fmt.Printf("Editing note with title: %s and new content: %s\n", title, content)
 	return nil
 }
 
+// deleteNote function to delete an existing note with the given title
 func deleteNote(title string) error {
-	fmt.Printf("Deleting note with title: %s\n", title)
-	return nil
+    fmt.Printf("Deleting note with title: %s\n", title)
+    return nil
 }
 
+// sendNote function to send an encrypted note to the specified target IP address
 func sendNote(title, target string) error {
     // Read the encrypted note from the notes/ directory
-    encryptedNote, err := ioutil.ReadFile(fmt.Sprintf("notes/%s.txt", title))
-    if err != nil {
-        return err
-    }
-
-    // Create a temporary file to store the encrypted note
-    tempFile, err := ioutil.TempFile("", "encrypted_note_*.txt")
-    if err != nil {
-        return err
-    }
-    defer tempFile.Close()
-    defer os.Remove(tempFile.Name())
-
-    // Write the encrypted note to the temporary file
-    _, err = tempFile.Write(encryptedNote)
+    data, err := ioutil.ReadFile(fmt.Sprintf("notes/%s.txt", title))
     if err != nil {
         return err
     }
 
     // Execute the SCP command to send the note to the target IP address
-    cmd := exec.Command("scp", tempFile.Name(), fmt.Sprintf("%s:%s.txt", target, title))
+    cmd := exec.Command("scp", fmt.Sprintf("notes/%s.txt", title), fmt.Sprintf("%s:%s.txt", target, title))
     cmd.Stdin = os.Stdin
     cmd.Stdout = os.Stdout
     cmd.Stderr = os.Stderr
@@ -70,7 +61,9 @@ func sendNote(title, target string) error {
     return nil
 }
 
+// encryption using otdfctl utility, docs here are important
 func encryptContent(content string) (string, error) {
+	// might have to edit where the keycloak daemon is running, but default locally should be port 8888
 	cmd := exec.Command("otdfctl", "encrypt", "--host", "http://localhost:8888")
 	cmd.Stdin = strings.NewReader(content)
 	output, err := cmd.CombinedOutput()
