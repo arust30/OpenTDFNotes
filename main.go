@@ -1,13 +1,15 @@
 package main
 
+// Imports
 import (
-	"bufio"
-	"fmt"
-	"os"
-	"os/exec"
-	"strings"
+    "bufio"
+    "fmt"
+    "io/ioutil"
+    "os"
+    "os/exec"
+    "strings"
 )
-
+//
 type Note struct {
 	Title   string
 	Content string
@@ -23,9 +25,7 @@ func createNote(title, content string) error {
 }
 
 func editNote(title, content string) error {
-	// For the sake of simplicity, we'll just print the new content.
-	// In a real implementation, you would find the note with the given title
-	// and update its content.
+	// For the sake of simplicity, we'll just print the new content. In a real implementation, you would find the note with the given title and update the content.
 	fmt.Printf("Editing note with title: %s and new content: %s\n", title, content)
 	return nil
 }
@@ -35,9 +35,39 @@ func deleteNote(title string) error {
 	return nil
 }
 
-func listNotes() ([]string, error) {
-	fmt.Println("Listing all notes (placeholder)")
-	return []string{"Note 1", "Note 2", "Note 3"}, nil
+func sendNote(title, target string) error {
+    // Read the encrypted note from the notes/ directory
+    encryptedNote, err := ioutil.ReadFile(fmt.Sprintf("notes/%s.txt", title))
+    if err != nil {
+        return err
+    }
+
+    // Create a temporary file to store the encrypted note
+    tempFile, err := ioutil.TempFile("", "encrypted_note_*.txt")
+    if err != nil {
+        return err
+    }
+    defer tempFile.Close()
+    defer os.Remove(tempFile.Name())
+
+    // Write the encrypted note to the temporary file
+    _, err = tempFile.Write(encryptedNote)
+    if err != nil {
+        return err
+    }
+
+    // Execute the SCP command to send the note to the target IP address
+    cmd := exec.Command("scp", tempFile.Name(), fmt.Sprintf("%s:%s.txt", target, title))
+    cmd.Stdin = os.Stdin
+    cmd.Stdout = os.Stdout
+    cmd.Stderr = os.Stderr
+    err = cmd.Run()
+    if err != nil {
+        return err
+    }
+
+    fmt.Printf("Successfully sent note '%s' to %s\n", title, target)
+    return nil
 }
 
 func encryptContent(content string) (string, error) {
@@ -52,6 +82,7 @@ func encryptContent(content string) (string, error) {
 	return encryptedContent, nil
 }
 
+// main function to parse command-line arguments and execute the corresponding function
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: note <command> [<args>]")
@@ -63,6 +94,8 @@ func main() {
 
 	switch command {
 	case "new":
+
+		// TODO: need exception handling for already existing note...
 		if len(args) < 1 {
 			fmt.Println("Usage: note new <title>")
 			return
@@ -124,11 +157,19 @@ func main() {
 		}
 
 		fmt.Println("Note deleted")
+	case "send":
+    		if len(args) < 2 {
+        		fmt.Println("Usage: note send <title> <target>")
+        		return
+    		}
 
-	case "list":
-		_, err := listNotes()
-		if err != nil {
-			fmt.Println(err)
-		}
+    		title := args[0]
+    		target := args[1]
+    		err := sendNote(title, target)
+    		if err != nil {
+        		fmt.Println(err)
+        		return
+    		}
+    		fmt.Println("Note sent")
 	}
 }
