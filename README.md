@@ -8,6 +8,7 @@ This repository is a small Proof-of-Concept for managing private notes on a loca
 ```
 OpenTDFNotes/
 ├── cmd/
+│   └── main.go/
 │   └── list.go/
 │   └── delete.go/
 │   └── new.go/
